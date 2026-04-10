@@ -1,0 +1,2319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="酷酷虎服饰 - 时尚穿搭，品质生活，畅享购物">
+  <title>酷酷虎服饰 - 时尚穿搭，品质生活</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#fef2f2',
+              100: '#fee2e2',
+              200: '#fecaca',
+              300: '#fca5a5',
+              400: '#f87171',
+              500: '#ef4444',
+              600: '#dc2626',
+              700: '#b91c1c',
+              800: '#991b1b',
+              900: '#7f1d1d'
+            },
+            tiger: {
+              orange: '#ff6b35',
+              dark: '#1a1a2e',
+              light: '#fff8f0'
+            }
+          },
+          fontFamily: {
+            sans: ['Noto Sans SC', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans SC', system-ui, sans-serif; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
+
+    /* Animations */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+    @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .animate-fadeIn { animation: fadeIn 0.5s ease-out forwards; }
+    .animate-slideIn { animation: slideIn 0.3s ease-out forwards; }
+    .animate-bounce { animation: bounce 2s ease-in-out infinite; }
+    .animate-pulse-custom { animation: pulse 2s ease-in-out infinite; }
+    .animate-shimmer { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+    .animate-float { animation: float 3s ease-in-out infinite; }
+    .animate-scaleIn { animation: scaleIn 0.3s ease-out forwards; }
+
+    /* Card Hover Effects */
+    .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+
+    /* Button Effects */
+    .btn-primary { background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); transition: all 0.3s ease; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(255,107,53,0.3); }
+
+    /* Glass Effect */
+    .glass { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+
+    /* Gradient Text */
+    .gradient-text { background: linear-gradient(135deg, #ff6b35, #f7931e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* Image Lazy Loading */
+    .lazy-img { opacity: 0; transition: opacity 0.5s ease; }
+    .lazy-img.loaded { opacity: 1; }
+
+    /* Toast Notification */
+    .toast { transform: translateX(120%); transition: transform 0.3s ease; }
+    .toast.show { transform: translateX(0); }
+
+    /* Badge Pulse */
+    .badge-pulse::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit; animation: pulse 2s ease-in-out infinite; }
+
+    /* Skeleton Loading */
+    .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+
+    /* Carousel */
+    .carousel-item { transition: transform 0.5s ease-in-out; }
+
+    /* Modal Backdrop */
+    .modal-backdrop { background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
+
+    /* Tiger Logo Animation */
+    .tiger-logo { transition: transform 0.3s ease; }
+    .tiger-logo:hover { transform: scale(1.1) rotate(-5deg); }
+
+    /* Number animation */
+    .count-up { transition: all 0.3s ease; }
+
+    /* Stagger children animation */
+    .stagger-children > * { opacity: 0; animation: fadeIn 0.5s ease-out forwards; }
+    .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+    .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+    .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+    .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+    .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+    .stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+    .stagger-children > *:nth-child(7) { animation-delay: 0.7s; }
+    .stagger-children > *:nth-child(8) { animation-delay: 0.8s; }
+
+    /* Rating Stars */
+    .star-filled { color: #fbbf24; }
+    .star-empty { color: #d1d5db; }
+
+    /* Price Tag */
+    .price-tag::before { content: '¥'; font-size: 0.7em; vertical-align: top; }
+
+    /* Mobile Menu Animation */
+    .mobile-menu { transform: translateX(-100%); transition: transform 0.3s ease; }
+    .mobile-menu.open { transform: translateX(0); }
+
+    /* Page Transitions */
+    .page { display: none; opacity: 0; }
+    .page.active { display: block; opacity: 1; animation: fadeIn 0.3s ease; }
+
+    /* Search Suggestion */
+    .suggestion-item:hover { background: #f3f4f6; }
+
+    /* Cart Badge */
+    .cart-badge { min-width: 18px; height: 18px; font-size: 11px; }
+
+    /* Input Focus */
+    .input-focus:focus { outline: none; box-shadow: 0 0 0 3px rgba(255,107,53,0.2); }
+
+    /* Product Grid */
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+
+    @media (max-width: 640px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+    }
+
+    /* Category Pills */
+    .category-pill { transition: all 0.2s ease; }
+    .category-pill:hover { transform: scale(1.05); }
+    .category-pill.active { background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); color: white; }
+
+    /* Flash Sale Timer */
+    .timer-box { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed top-20 right-4 z-50 space-y-2"></div>
+
+  <!-- Header -->
+  <header id="header" class="sticky top-0 z-40 glass border-b border-gray-200 shadow-sm">
+    <!-- Top Bar -->
+    <div class="bg-tiger-dark text-white text-xs py-1">
+      <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+        <span>欢迎来到酷酷虎！</span>
+        <div class="flex items-center space-x-4">
+          <span id="header-time"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Nav -->
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="flex items-center justify-between gap-4">
+        <!-- Logo -->
+        <a href="#" onclick="showPage('home')" class="tiger-logo flex items-center space-x-2 flex-shrink-0">
+          <div class="w-10 h-10 bg-gradient-to-br from-tiger-orange to-yellow-500 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">虎</div>
+          <div>
+            <h1 class="text-xl font-bold gradient-text">酷酷虎</h1>
+            <p class="text-xs text-gray-500">酷购物 · 酷生活</p>
+          </div>
+        </a>
+
+        <!-- Search Bar -->
+        <div class="flex-1 max-w-2xl hidden md:block">
+          <div class="relative">
+            <input type="text" id="search-input" placeholder="搜索商品、品牌、店铺..." 
+              class="w-full pl-4 pr-12 py-2.5 border border-gray-200 rounded-full focus:outline-none focus:border-tiger-orange input-focus transition-colors"
+              oninput="handleSearch(this.value)" onfocus="showSearchSuggestions()">
+            <button onclick="performSearch()" class="absolute right-1 top-1/2 -translate-y-1/2 bg-tiger-orange text-white p-2 rounded-full hover:bg-orange-600 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </button>
+            <!-- Search Suggestions -->
+            <div id="search-suggestions" class="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-xl border border-gray-100 hidden z-50">
+              <div class="p-3 border-b border-gray-100">
+                <p class="text-xs text-gray-500">热门搜索</p>
+                <div class="flex flex-wrap gap-2 mt-2">
+                  <span onclick="searchHotWord(this.textContent)" class="px-3 py-1 bg-gray-100 rounded-full text-xs cursor-pointer hover:bg-tiger-orange hover:text-white transition-colors">连衣裙</span>
+                  <span onclick="searchHotWord(this.textContent)" class="px-3 py-1 bg-gray-100 rounded-full text-xs cursor-pointer hover:bg-tiger-orange hover:text-white transition-colors">运动鞋</span>
+                  <span onclick="searchHotWord(this.textContent)" class="px-3 py-1 bg-gray-100 rounded-full text-xs cursor-pointer hover:bg-tiger-orange hover:text-white transition-colors">手提包</span>
+                  <span onclick="searchHotWord(this.textContent)" class="px-3 py-1 bg-gray-100 rounded-full text-xs cursor-pointer hover:bg-tiger-orange hover:text-white transition-colors">衬衫</span>
+                </div>
+              </div>
+              <div id="suggestion-list" class="p-2 max-h-64 overflow-y-auto"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Actions -->
+        <div class="flex items-center space-x-2 md:space-x-4">
+          <!-- Mobile Search -->
+          <button onclick="toggleMobileSearch()" class="md:hidden p-2 hover:bg-gray-100 rounded-full">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </button>
+
+          <!-- User Menu -->
+          <div class="relative">
+            <button onclick="toggleUserMenu()" class="flex items-center space-x-1 hover:bg-gray-100 px-3 py-2 rounded-full transition-colors">
+              <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+              <span id="user-name" class="text-sm text-gray-700 hidden md:inline">登录/注册</span>
+            </button>
+            <!-- User Dropdown -->
+            <div id="user-dropdown" class="absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 hidden z-50 animate-scaleIn">
+              <div id="user-dropdown-content"></div>
+            </div>
+          </div>
+
+          <!-- Cart -->
+          <button onclick="showPage('cart')" class="relative p-2 hover:bg-gray-100 rounded-full transition-colors">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            <span id="cart-count" class="cart-badge absolute -top-1 -right-1 bg-red-500 text-white rounded-full flex items-center justify-center font-medium hidden">0</span>
+          </button>
+
+          <!-- Mobile Menu -->
+          <button onclick="toggleMobileMenu()" class="md:hidden p-2 hover:bg-gray-100 rounded-full">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Categories Bar -->
+    <div class="border-t border-gray-100 hidden md:block">
+      <div class="max-w-7xl mx-auto px-4">
+        <nav class="flex items-center space-x-1 py-2 text-sm overflow-x-auto">
+          <a href="#" onclick="showPage('home')" class="px-4 py-1.5 text-gray-700 hover:text-tiger-orange hover:bg-orange-50 rounded-full transition-colors font-medium">首页</a>
+          <a href="#" onclick="filterByCategory('womens')" class="px-4 py-1.5 text-gray-700 hover:text-tiger-orange hover:bg-orange-50 rounded-full transition-colors">女装</a>
+          <a href="#" onclick="filterByCategory('mens')" class="px-4 py-1.5 text-gray-700 hover:text-tiger-orange hover:bg-orange-50 rounded-full transition-colors">男装</a>
+          <a href="#" onclick="filterByCategory('shoes')" class="px-4 py-1.5 text-gray-700 hover:text-tiger-orange hover:bg-orange-50 rounded-full transition-colors">鞋靴</a>
+          <a href="#" onclick="filterByCategory('bags')" class="px-4 py-1.5 text-gray-700 hover:text-tiger-orange hover:bg-orange-50 rounded-full transition-colors">箱包皮具</a>
+          <a href="#" onclick="filterByCategory('accessories')" class="px-4 py-1.5 text-gray-700 hover:text-tiger-orange hover:bg-orange-50 rounded-full transition-colors">配饰</a>
+          <a href="#" onclick="filterByCategory('sportswear')" class="px-4 py-1.5 text-gray-700 hover:text-tiger-orange hover:bg-orange-50 rounded-full transition-colors">运动服饰</a>
+          <a href="#" onclick="filterByCategory('kids')" class="px-4 py-1.5 text-gray-700 hover:text-tiger-orange hover:bg-orange-50 rounded-full transition-colors">童装童鞋</a>
+          <a href="#" onclick="filterByCategory('underwear')" class="px-4 py-1.5 text-gray-700 hover:text-tiger-orange hover:bg-orange-50 rounded-full transition-colors">内衣家居</a>
+          <a href="#" onclick="filterByCategory('maternity')" class="px-4 py-1.5 text-gray-700 hover:text-tiger-orange hover:bg-orange-50 rounded-full transition-colors">孕产用品</a>
+          <a href="#" onclick="filterByCategory('luxury')" class="px-4 py-1.5 text-gray-700 hover:text-tiger-orange hover:bg-orange-50 rounded-full transition-colors">轻奢精品</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Search Modal -->
+  <div id="mobile-search" class="fixed inset-0 bg-white z-50 hidden">
+    <div class="p-4">
+      <div class="flex items-center space-x-2">
+        <button onclick="toggleMobileSearch()" class="p-2 hover:bg-gray-100 rounded-full">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <input type="text" id="mobile-search-input" placeholder="搜索商品、品牌、店铺..." 
+          class="flex-1 pl-4 pr-4 py-2.5 border border-gray-200 rounded-full focus:outline-none focus:border-tiger-orange input-focus"
+          oninput="handleSearch(this.value)">
+        <button onclick="performMobileSearch()" class="bg-tiger-orange text-white px-6 py-2.5 rounded-full">搜索</button>
+      </div>
+        <div class="mt-4">
+        <p class="text-xs text-gray-500 mb-2">热门搜索</p>
+        <div class="flex flex-wrap gap-2">
+          <span onclick="searchHotWord(this.textContent)" class="px-4 py-2 bg-gray-100 rounded-full text-sm cursor-pointer hover:bg-tiger-orange hover:text-white transition-colors">碎花连衣裙</span>
+          <span onclick="searchHotWord(this.textContent)" class="px-4 py-2 bg-gray-100 rounded-full text-sm cursor-pointer hover:bg-tiger-orange hover:text-white transition-colors">运动休闲鞋</span>
+          <span onclick="searchHotWord(this.textContent)" class="px-4 py-2 bg-gray-100 rounded-full text-sm cursor-pointer hover:bg-tiger-orange hover:text-white transition-colors">轻奢手提包</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 bg-white z-50">
+    <div class="p-4 border-b border-gray-100">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <div class="w-10 h-10 bg-gradient-to-br from-tiger-orange to-yellow-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">虎</div>
+          <span class="text-xl font-bold gradient-text">酷酷虎</span>
+        </div>
+        <button onclick="toggleMobileMenu()" class="p-2 hover:bg-gray-100 rounded-full">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div class="p-4">
+      <div id="mobile-user-section" class="mb-6"></div>
+      <nav class="space-y-1">
+        <a href="#" onclick="showPage('home'); toggleMobileMenu();" class="flex items-center space-x-3 p-3 hover:bg-orange-50 rounded-xl transition-colors">
+          <span class="text-2xl">🏠</span><span class="font-medium">首页</span>
+        </a>
+        <a href="#" onclick="filterByCategory('electronics'); toggleMobileMenu();" class="flex items-center space-x-3 p-3 hover:bg-orange-50 rounded-xl transition-colors">
+          <span class="text-2xl">👗</span><span class="font-medium">女装</span>
+        </a>
+        <a href="#" onclick="filterByCategory('mens'); toggleMobileMenu();" class="flex items-center space-x-3 p-3 hover:bg-orange-50 rounded-xl transition-colors">
+          <span class="text-2xl">👔</span><span class="font-medium">男装</span>
+        </a>
+        <a href="#" onclick="filterByCategory('shoes'); toggleMobileMenu();" class="flex items-center space-x-3 p-3 hover:bg-orange-50 rounded-xl transition-colors">
+          <span class="text-2xl">👟</span><span class="font-medium">鞋靴</span>
+        </a>
+        <a href="#" onclick="filterByCategory('bags'); toggleMobileMenu();" class="flex items-center space-x-3 p-3 hover:bg-orange-50 rounded-xl transition-colors">
+          <span class="text-2xl">👜</span><span class="font-medium">箱包皮具</span>
+        </a>
+        <a href="#" onclick="filterByCategory('accessories'); toggleMobileMenu();" class="flex items-center space-x-3 p-3 hover:bg-orange-50 rounded-xl transition-colors">
+          <span class="text-2xl">⌚</span><span class="font-medium">配饰</span>
+        </a>
+        <a href="#" onclick="filterByCategory('sportswear'); toggleMobileMenu();" class="flex items-center space-x-3 p-3 hover:bg-orange-50 rounded-xl transition-colors">
+          <span class="text-2xl">⚽</span><span class="font-medium">运动服饰</span>
+        </a>
+        <a href="#" onclick="filterByCategory('kids'); toggleMobileMenu();" class="flex items-center space-x-3 p-3 hover:bg-orange-50 rounded-xl transition-colors">
+          <span class="text-2xl">🧸</span><span class="font-medium">童装童鞋</span>
+        </a>
+        <a href="#" onclick="filterByCategory('underwear'); toggleMobileMenu();" class="flex items-center space-x-3 p-3 hover:bg-orange-50 rounded-xl transition-colors">
+          <span class="text-2xl">🩱</span><span class="font-medium">内衣家居</span>
+        </a>
+        <a href="#" onclick="filterByCategory('maternity'); toggleMobileMenu();" class="flex items-center space-x-3 p-3 hover:bg-orange-50 rounded-xl transition-colors">
+          <span class="text-2xl">🤰</span><span class="font-medium">孕产用品</span>
+        </a>
+        <a href="#" onclick="filterByCategory('luxury'); toggleMobileMenu();" class="flex items-center space-x-3 p-3 hover:bg-orange-50 rounded-xl transition-colors">
+          <span class="text-2xl">💎</span><span class="font-medium">轻奢精品</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <!-- Home Page -->
+    <div id="page-home" class="page active">
+      <!-- Hero Carousel -->
+      <section class="relative overflow-hidden">
+        <div id="carousel" class="relative h-64 md:h-96">
+          <div id="carousel-inner" class="flex transition-transform duration-500 h-full"></div>
+        </div>
+        <!-- Carousel Indicators -->
+        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+          <div id="carousel-indicators" class="flex space-x-2"></div>
+        </div>
+        <!-- Carousel Arrows -->
+        <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg transition-all hover:scale-110 z-10">
+          <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg transition-all hover:scale-110 z-10">
+          <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+      </section>
+
+      <!-- Promotions -->
+      <section class="max-w-7xl mx-auto px-4 py-6">
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-3 stagger-children">
+          <div onclick="showPromotion(1)" class="card-hover bg-white rounded-xl p-3 border border-gray-100 cursor-pointer text-center">
+            <div class="text-2xl mb-1">⏰</div>
+            <p class="font-semibold text-sm">限时秒杀</p>
+            <p class="text-xs text-gray-500">每天10点开抢</p>
+          </div>
+          <div onclick="showPromotion(2)" class="card-hover bg-white rounded-xl p-3 border border-gray-100 cursor-pointer text-center">
+            <div class="text-2xl mb-1">🎁</div>
+            <p class="font-semibold text-sm">新人专享</p>
+            <p class="text-xs text-gray-500">首单满100减20</p>
+          </div>
+          <div onclick="showPromotion(3)" class="card-hover bg-white rounded-xl p-3 border border-gray-100 cursor-pointer text-center">
+            <div class="text-2xl mb-1">💰</div>
+            <p class="font-semibold text-sm">满减优惠</p>
+            <p class="text-xs text-gray-500">满299减50</p>
+          </div>
+          <div onclick="showPromotion(4)" class="card-hover bg-white rounded-xl p-3 border border-gray-100 cursor-pointer text-center">
+            <div class="text-2xl mb-1">🏷️</div>
+            <p class="font-semibold text-sm">品牌特卖</p>
+            <p class="text-xs text-gray-500">大牌低至3折</p>
+          </div>
+          <div onclick="showPromotion(5)" class="card-hover bg-white rounded-xl p-3 border border-gray-100 cursor-pointer text-center">
+            <div class="text-2xl mb-1">⭐</div>
+            <p class="font-semibold text-sm">积分兑换</p>
+            <p class="text-xs text-gray-500">积分当钱花</p>
+          </div>
+          <div onclick="showPromotion(6)" class="card-hover bg-white rounded-xl p-3 border border-gray-100 cursor-pointer text-center">
+            <div class="text-2xl mb-1">👑</div>
+            <p class="font-semibold text-sm">会员专享</p>
+            <p class="text-xs text-gray-500">会员日双倍积分</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Flash Sale -->
+      <section class="max-w-7xl mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-red-600 to-orange-500 rounded-2xl p-4 md:p-6 text-white">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-3">
+              <span class="text-3xl">🔥</span>
+              <div>
+                <h2 class="text-xl font-bold">限时秒杀</h2>
+                <p class="text-sm opacity-80">爆款好物，限时特惠</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="text-sm">距结束</span>
+              <div id="flash-sale-timer" class="flex space-x-1">
+                <span class="timer-box px-2 py-1 rounded font-mono font-bold">00</span>
+                <span>:</span>
+                <span class="timer-box px-2 py-1 rounded font-mono font-bold">00</span>
+                <span>:</span>
+                <span class="timer-box px-2 py-1 rounded font-mono font-bold">00</span>
+              </div>
+            </div>
+          </div>
+          <div id="flash-sale-products" class="grid grid-cols-2 md:grid-cols-5 gap-3"></div>
+        </div>
+      </section>
+
+      <!-- Categories -->
+      <section class="max-w-7xl mx-auto px-4 py-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold">商品分类</h2>
+          <a href="#" onclick="showAllCategories()" class="text-tiger-orange text-sm hover:underline">查看全部</a>
+        </div>
+        <div id="category-grid" class="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-10 gap-3 stagger-children"></div>
+      </section>
+
+      <!-- Hot Products -->
+      <section class="max-w-7xl mx-auto px-4 py-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-2xl">🏆</span>
+            <h2 class="text-xl font-bold">热门推荐</h2>
+          </div>
+          <div class="flex space-x-2">
+            <button onclick="switchHotTab('sales')" id="tab-sales" class="px-4 py-1.5 text-sm font-medium bg-tiger-orange text-white rounded-full">销量优先</button>
+            <button onclick="switchHotTab('rating')" id="tab-rating" class="px-4 py-1.5 text-sm font-medium bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors">评分最高</button>
+            <button onclick="switchHotTab('new')" id="tab-new" class="px-4 py-1.5 text-sm font-medium bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors">最新上架</button>
+          </div>
+        </div>
+        <div id="hot-products" class="product-grid"></div>
+      </section>
+
+      <!-- All Products -->
+      <section class="max-w-7xl mx-auto px-4 py-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold">全部商品</h2>
+          <div class="flex items-center space-x-2">
+            <select id="sort-select" onchange="sortProducts(this.value)" class="px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-tiger-orange">
+              <option value="default">综合排序</option>
+              <option value="price-low">价格从低到高</option>
+              <option value="price-high">价格从高到低</option>
+              <option value="sales">销量优先</option>
+              <option value="rating">评分优先</option>
+            </select>
+          </div>
+        </div>
+        <div id="all-products" class="product-grid"></div>
+        <div id="load-more" class="text-center mt-6">
+          <button onclick="loadMoreProducts()" class="px-8 py-3 border-2 border-tiger-orange text-tiger-orange rounded-full font-medium hover:bg-tiger-orange hover:text-white transition-colors">
+            加载更多
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Product List Page -->
+    <div id="page-products" class="page">
+      <div class="max-w-7xl mx-auto px-4 py-6">
+        <!-- Breadcrumb -->
+        <div id="product-list-breadcrumb" class="flex items-center space-x-2 text-sm text-gray-500 mb-4">
+          <a href="#" onclick="showPage('home')" class="hover:text-tiger-orange">首页</a>
+          <span>/</span>
+          <span id="category-breadcrumb">商品列表</span>
+        </div>
+        
+        <!-- Filter Bar -->
+        <div class="bg-white rounded-xl p-4 mb-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="font-medium">分类：</span>
+            <button onclick="filterByCategory(null)" class="category-pill px-4 py-1.5 bg-gray-100 rounded-full text-sm active">全部</button>
+            <div id="category-filters"></div>
+          </div>
+        </div>
+
+        <div id="filtered-products" class="product-grid"></div>
+        <div id="filtered-load-more" class="text-center mt-6">
+          <button onclick="loadMoreFilteredProducts()" class="px-8 py-3 border-2 border-tiger-orange text-tiger-orange rounded-full font-medium hover:bg-tiger-orange hover:text-white transition-colors">
+            加载更多
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Detail Page -->
+    <div id="page-detail" class="page">
+      <div id="product-detail" class="max-w-7xl mx-auto px-4 py-6"></div>
+    </div>
+
+    <!-- Cart Page -->
+    <div id="page-cart" class="page">
+      <div class="max-w-7xl mx-auto px-4 py-6">
+        <h1 class="text-2xl font-bold mb-6">🛒 购物车</h1>
+        <div id="cart-empty" class="hidden text-center py-16">
+          <div class="text-6xl mb-4">🛒</div>
+          <p class="text-gray-500 mb-4">购物车是空的</p>
+          <button onclick="showPage('home')" class="btn-primary px-6 py-2 text-white rounded-full">去逛逛</button>
+        </div>
+        <div id="cart-content" class="grid lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2">
+            <div id="cart-items" class="space-y-3"></div>
+          </div>
+          <div class="lg:col-span-1">
+            <div class="bg-white rounded-xl p-4 sticky top-24">
+              <h3 class="font-bold mb-4">订单摘要</h3>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-gray-500">商品总价</span>
+                  <span id="cart-subtotal">¥0.00</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-500">运费</span>
+                  <span id="cart-shipping">¥0.00</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-500">优惠</span>
+                  <span id="cart-discount" class="text-green-500">-¥0.00</span>
+                </div>
+                <div class="border-t pt-2 mt-2">
+                  <div class="flex justify-between font-bold text-lg">
+                    <span>合计</span>
+                    <span id="cart-total" class="text-tiger-orange">¥0.00</span>
+                  </div>
+                </div>
+              </div>
+              <button onclick="goToCheckout()" class="w-full btn-primary mt-4 py-3 text-white rounded-xl font-medium">
+                去结算 (<span id="cart-item-count">0</span>)
+              </button>
+              <div class="mt-4 flex items-center justify-center space-x-4 text-xs text-gray-500">
+                <span>🔒 安全支付</span>
+                <span>🚚 急速发货</span>
+                <span>💯 正品保障</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checkout Page -->
+    <div id="page-checkout" class="page">
+      <div class="max-w-7xl mx-auto px-4 py-6">
+        <h1 class="text-2xl font-bold mb-6">📦 确认订单</h1>
+        <div id="checkout-content" class="grid lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-4">
+            <!-- Address Section -->
+            <div class="bg-white rounded-xl p-4">
+              <h3 class="font-bold mb-4 flex items-center">
+                <span class="text-xl mr-2">📍</span>收货地址
+              </h3>
+              <div id="address-list" class="space-y-3"></div>
+              <button onclick="showAddAddressModal()" class="mt-3 w-full py-2 border-2 border-dashed border-gray-300 rounded-xl text-gray-500 hover:border-tiger-orange hover:text-tiger-orange transition-colors">
+                + 添加新地址
+              </button>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="bg-white rounded-xl p-4">
+              <h3 class="font-bold mb-4 flex items-center">
+                <span class="text-xl mr-2">💳</span>支付方式
+              </h3>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <label class="flex items-center space-x-2 p-3 border-2 border-tiger-orange rounded-xl cursor-pointer bg-orange-50">
+                  <input type="radio" name="payment" value="alipay" checked class="text-tiger-orange">
+                  <span>支付宝</span>
+                </label>
+                <label class="flex items-center space-x-2 p-3 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-tiger-orange transition-colors">
+                  <input type="radio" name="payment" value="wechat" class="text-tiger-orange">
+                  <span>微信支付</span>
+                </label>
+                <label class="flex items-center space-x-2 p-3 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-tiger-orange transition-colors">
+                  <input type="radio" name="payment" value="unionpay" class="text-tiger-orange">
+                  <span>银联支付</span>
+                </label>
+                <label class="flex items-center space-x-2 p-3 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-tiger-orange transition-colors">
+                  <input type="radio" name="payment" value="card" class="text-tiger-orange">
+                  <span>银行卡</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Order Items -->
+            <div class="bg-white rounded-xl p-4">
+              <h3 class="font-bold mb-4 flex items-center">
+                <span class="text-xl mr-2">📦</span>商品清单
+              </h3>
+              <div id="checkout-items" class="space-y-3"></div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-1">
+            <div class="bg-white rounded-xl p-4 sticky top-24">
+              <h3 class="font-bold mb-4">订单金额</h3>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-gray-500">商品件数</span>
+                  <span id="checkout-count">0件</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-500">商品总价</span>
+                  <span id="checkout-subtotal">¥0.00</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-500">运费</span>
+                  <span id="checkout-shipping">¥0.00</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-500">优惠</span>
+                  <span id="checkout-discount" class="text-green-500">-¥0.00</span>
+                </div>
+                <div class="border-t pt-2 mt-2">
+                  <div class="flex justify-between font-bold text-lg">
+                    <span>应付金额</span>
+                    <span id="checkout-total" class="text-tiger-orange">¥0.00</span>
+                  </div>
+                </div>
+              </div>
+              <button onclick="submitOrder()" id="submit-order-btn" class="w-full btn-primary mt-4 py-3 text-white rounded-xl font-medium">
+                提交订单
+              </button>
+              <p class="text-xs text-gray-500 text-center mt-3">
+                点击提交订单即表示同意<a href="#" class="text-tiger-orange">《用户协议》</a>和<a href="#" class="text-tiger-orange">《隐私政策》</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Page -->
+    <div id="page-payment" class="page">
+      <div class="max-w-lg mx-auto px-4 py-6">
+        <div class="bg-white rounded-xl p-6 text-center">
+          <div class="text-6xl mb-4">💳</div>
+          <h2 class="text-2xl font-bold mb-2">订单已提交</h2>
+          <p class="text-gray-500 mb-4">订单金额：<span id="payment-amount" class="text-tiger-orange font-bold">¥0.00</span></p>
+          
+          <!-- Payment QR Code -->
+          <div id="payment-qrcode" class="bg-gray-100 rounded-xl p-4 mb-4">
+            <div class="bg-white rounded-lg p-4 inline-block">
+              <div id="qr-placeholder" class="w-48 h-48 bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center">
+                <span class="text-gray-500">生成支付二维码...</span>
+              </div>
+            </div>
+            <p class="text-sm text-gray-500 mt-3">请使用支付宝/微信扫码支付</p>
+          </div>
+
+          <div class="space-y-2 text-sm text-gray-500 mb-6">
+            <p>⏰ 请在<span id="payment-timeout" class="font-bold text-tiger-orange">15:00</span>内完成支付</p>
+            <p>💡 支付成功后，订单将自动发货</p>
+          </div>
+
+          <div class="flex space-x-3">
+            <button onclick="showPage('orders')" class="flex-1 py-3 border-2 border-tiger-orange text-tiger-orange rounded-xl font-medium hover:bg-orange-50 transition-colors">
+              查看订单
+            </button>
+            <button onclick="completePayment()" class="flex-1 btn-primary py-3 text-white rounded-xl font-medium">
+              已完成支付
+            </button>
+          </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="bg-white rounded-xl p-4 mt-4">
+          <h3 class="font-bold mb-3">订单信息</h3>
+          <div id="payment-order-info" class="space-y-2 text-sm"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders Page -->
+    <div id="page-orders" class="page">
+      <div class="max-w-7xl mx-auto px-4 py-6">
+        <h1 class="text-2xl font-bold mb-6">📋 我的订单</h1>
+        <div class="flex space-x-2 mb-6 overflow-x-auto pb-2">
+          <button onclick="filterOrders('all')" class="order-tab px-4 py-2 bg-tiger-orange text-white rounded-full text-sm font-medium whitespace-nowrap">全部</button>
+          <button onclick="filterOrders('pending')" class="order-tab px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium whitespace-nowrap hover:bg-gray-200 transition-colors">待支付</button>
+          <button onclick="filterOrders('paid')" class="order-tab px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium whitespace-nowrap hover:bg-gray-200 transition-colors">待发货</button>
+          <button onclick="filterOrders('shipped')" class="order-tab px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium whitespace-nowrap hover:bg-gray-200 transition-colors">待收货</button>
+          <button onclick="filterOrders('completed')" class="order-tab px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium whitespace-nowrap hover:bg-gray-200 transition-colors">已完成</button>
+        </div>
+        <div id="orders-list" class="space-y-4"></div>
+        <div id="orders-empty" class="hidden text-center py-16">
+          <div class="text-6xl mb-4">📋</div>
+          <p class="text-gray-500 mb-4">暂无订单</p>
+          <button onclick="showPage('home')" class="btn-primary px-6 py-2 text-white rounded-full">去逛逛</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Center Page -->
+    <div id="page-user" class="page">
+      <div class="max-w-7xl mx-auto px-4 py-6">
+        <!-- User Header -->
+        <div id="user-center-header" class="bg-gradient-to-r from-tiger-orange to-yellow-500 rounded-2xl p-6 text-white mb-6">
+          <div class="flex items-center space-x-4">
+            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-4xl shadow-lg">
+              😃
+            </div>
+            <div>
+              <h2 id="user-center-name" class="text-2xl font-bold">游客</h2>
+              <p id="user-center-level" class="opacity-80">登录即可享受更多权益</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-4 gap-3 mb-6">
+          <div class="bg-white rounded-xl p-4 text-center">
+            <p class="text-2xl font-bold text-tiger-orange" id="user-favorites-count">0</p>
+            <p class="text-xs text-gray-500">收藏</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 text-center">
+            <p class="text-2xl font-bold text-blue-500" id="user-coupons-count">0</p>
+            <p class="text-xs text-gray-500">优惠券</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 text-center">
+            <p class="text-2xl font-bold text-green-500" id="user-points">0</p>
+            <p class="text-xs text-gray-500">积分</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 text-center">
+            <p class="text-2xl font-bold text-purple-500" id="user-orders-count">0</p>
+            <p class="text-xs text-gray-500">订单</p>
+          </div>
+        </div>
+
+        <!-- Menu -->
+        <div class="bg-white rounded-xl overflow-hidden">
+          <a href="#" onclick="showPage('orders')" class="flex items-center justify-between p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+            <div class="flex items-center space-x-3">
+              <span class="text-2xl">📦</span>
+              <span class="font-medium">我的订单</span>
+            </div>
+            <div class="flex items-center">
+              <span class="text-gray-400 text-sm mr-2">查看全部</span>
+              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+          </a>
+          <a href="#" onclick="showFavorites()" class="flex items-center justify-between p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+            <div class="flex items-center space-x-3">
+              <span class="text-2xl">❤️</span>
+              <span class="font-medium">我的收藏</span>
+            </div>
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+          <a href="#" onclick="showCoupons()" class="flex items-center justify-between p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+            <div class="flex items-center space-x-3">
+              <span class="text-2xl">🎫</span>
+              <span class="font-medium">优惠券</span>
+            </div>
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+          <a href="#" onclick="showAddress()" class="flex items-center justify-between p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+            <div class="flex items-center space-x-3">
+              <span class="text-2xl">📍</span>
+              <span class="font-medium">收货地址</span>
+            </div>
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+          <a href="#" onclick="logout()" class="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
+            <div class="flex items-center space-x-3">
+              <span class="text-2xl">🚪</span>
+              <span class="font-medium text-red-500">退出登录</span>
+            </div>
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Results Page -->
+    <div id="page-search" class="page">
+      <div class="max-w-7xl mx-auto px-4 py-6">
+        <div class="flex items-center space-x-2 text-sm text-gray-500 mb-4">
+          <span>搜索结果：</span>
+          <span id="search-keyword" class="text-tiger-orange font-medium"></span>
+          <span>(<span id="search-count">0</span>件商品)</span>
+        </div>
+        <div id="search-results" class="product-grid"></div>
+        <div id="search-empty" class="hidden text-center py-16">
+          <div class="text-6xl mb-4">🔍</div>
+          <p class="text-gray-500 mb-4">未找到相关商品</p>
+          <button onclick="showPage('home')" class="btn-primary px-6 py-2 text-white rounded-full">去逛逛</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Login Modal -->
+  <div id="login-modal" class="fixed inset-0 modal-backdrop z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl w-full max-w-md animate-scaleIn">
+      <div class="p-6">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-xl font-bold" id="login-modal-title">登录</h2>
+          <button onclick="closeModal('login-modal')" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" onsubmit="handleLogin(event)">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">手机号 / 用户名</label>
+              <input type="text" id="login-username" required
+                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-tiger-orange input-focus"
+                placeholder="请输入手机号或用户名">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">密码</label>
+              <input type="password" id="login-password" required
+                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-tiger-orange input-focus"
+                placeholder="请输入密码">
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <label class="flex items-center">
+                <input type="checkbox" class="mr-2 text-tiger-orange">
+                <span class="text-gray-500">记住我</span>
+              </label>
+              <a href="#" class="text-tiger-orange hover:underline">忘记密码？</a>
+            </div>
+          </div>
+          <button type="submit" class="w-full btn-primary mt-6 py-3 text-white rounded-xl font-medium">
+            登录
+          </button>
+          <p class="text-center text-sm text-gray-500 mt-4">
+            还没有账号？<a href="#" onclick="switchToRegister()" class="text-tiger-orange hover:underline">立即注册</a>
+          </p>
+        </form>
+
+        <!-- Register Form -->
+        <form id="register-form" class="hidden" onsubmit="handleRegister(event)">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">手机号</label>
+              <input type="tel" id="register-phone" required
+                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-tiger-orange input-focus"
+                placeholder="请输入手机号">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">用户名</label>
+              <input type="text" id="register-username" required
+                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-tiger-orange input-focus"
+                placeholder="请输入用户名（2-20个字符）">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">密码</label>
+              <input type="password" id="register-password" required minlength="6"
+                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-tiger-orange input-focus"
+                placeholder="请输入密码（至少6个字符）">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">确认密码</label>
+              <input type="password" id="register-confirm" required
+                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-tiger-orange input-focus"
+                placeholder="请再次输入密码">
+            </div>
+            <div>
+              <label class="flex items-center">
+                <input type="checkbox" required class="mr-2 text-tiger-orange">
+                <span class="text-sm text-gray-500">我已阅读并同意<a href="#" class="text-tiger-orange">《用户协议》</a>和<a href="#" class="text-tiger-orange">《隐私政策》</a></span>
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="w-full btn-primary mt-6 py-3 text-white rounded-xl font-medium">
+            注册
+          </button>
+          <p class="text-center text-sm text-gray-500 mt-4">
+            已有账号？<a href="#" onclick="switchToLogin()" class="text-tiger-orange hover:underline">立即登录</a>
+          </p>
+        </form>
+
+        <!-- Quick Login -->
+        <div class="mt-6 pt-6 border-t border-gray-100">
+          <p class="text-center text-sm text-gray-500 mb-4">其他登录方式</p>
+          <div class="flex justify-center space-x-6">
+            <button onclick="quickLogin('wechat')" class="p-3 bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 01-.023-.156.49.49 0 01.201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.269-.03-.406-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+            </button>
+            <button onclick="quickLogin('qq')" class="p-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.003 2c-2.265 0-6.29.957-6.29 7.122 0 1.65.63 3.14 1.702 4.42-.01.09-.01.18-.01.27 0 2.356 3.002 4.267 6.673 4.267 1.003 0 1.92-.107 2.733-.301-.57-1.78.19-2.95.19-2.95 1.41.07 2.74-.54 2.74-2.22 0-1.52-.96-2.28-.96-2.28 1.32-.93 2.04-2.26 2.04-2.26.86-1.47.48-2.42.48-2.42-1.32-.06-2.03.76-2.03.76-.9-1.17-2.35-1.37-2.35-1.37-2.35-.17-.04-1.53-.04-1.53-.04C9.4 2.07 7.89 2 7.47 2c-.42 0-.93.07-.93.07C4.5 2.9 3.9 4.1 3.9 4.1c-.81 1.35-.42 2.61-.42 2.61-1.26.18-1.73.9-1.73.9s-.2.6-.2 1.62c0 1.94 1.14 2.94 1.14 2.94.95.18 2.1.98 2.1.98.77-.07 1.47-.3 1.47-.3s.25.13.58.17c-1.1.32-1.87 1.08-1.87 1.08-.5.78-.93 1.65-.93 1.65-.28.6-.83.95-1.08 1.15-.16.13-.26.34-.26.55 0 .19.08.37.08.37s1.85.86 3.85.86c2 0 3.85-.86 3.85-.86s.08-.18.08-.37c0-.21-.1-.42-.26-.55-.25-.2-.8-.55-1.08-1.15 0 0-.43-.76-.93-1.65 0 0-.77-.76-1.87-1.08.33-.04.58-.17.58-.17s.7.23 1.47.3c0 0 1.15-.8 2.1-.98 0 0 1.14-1 1.14-2.94 0-1.02-.2-1.62-.2-1.62s-.47-.72-1.73-.9c0 0 .39-1.26-.42-2.61 0 0-.57-1.23-2.12-1.23z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Address Modal -->
+  <div id="address-modal" class="fixed inset-0 modal-backdrop z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl w-full max-w-md animate-scaleIn">
+      <div class="p-6">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-xl font-bold">添加收货地址</h2>
+          <button onclick="closeModal('address-modal')" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <form id="address-form" onsubmit="handleAddAddress(event)">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">收货人</label>
+              <input type="text" id="address-name" required
+                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-tiger-orange input-focus"
+                placeholder="请输入收货人姓名">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">手机号</label>
+              <input type="tel" id="address-phone" required
+                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-tiger-orange input-focus"
+                placeholder="请输入手机号">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">省份/城市/区县</label>
+              <input type="text" id="address-region" required
+                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-tiger-orange input-focus"
+                placeholder="如：广东省 深圳市 南山区">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">详细地址</label>
+              <textarea id="address-detail" required rows="2"
+                class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-tiger-orange input-focus resize-none"
+                placeholder="请输入详细地址"></textarea>
+            </div>
+            <div>
+              <label class="flex items-center">
+                <input type="checkbox" id="address-default" class="mr-2 text-tiger-orange">
+                <span class="text-sm text-gray-500">设为默认地址</span>
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="w-full btn-primary mt-6 py-3 text-white rounded-xl font-medium">
+            保存地址
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-tiger-dark text-white mt-12">
+    <div class="max-w-7xl mx-auto px-4 py-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <div class="w-10 h-10 bg-gradient-to-br from-tiger-orange to-yellow-500 rounded-xl flex items-center justify-center text-xl font-bold">虎</div>
+            <span class="text-xl font-bold">酷酷虎</span>
+          </div>
+          <p class="text-gray-400 text-sm">品质生活，畅享购物</p>
+          <p class="text-gray-400 text-sm mt-2">让每一次购物都成为享受</p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">新手帮助</h4>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">购物指南</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">配送方式</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">支付方式</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">售后服务</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">关于酷酷虎</h4>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">关于我们</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">联系我们</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">加入我们</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">商家入驻</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">关注我们</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348z"/></svg>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M4.75 3.75002C3.49345 3.75002 2.25 5.0003 2.25 6.26563V17.7344C2.25 18.9997 3.49345 20.25 4.75 20.25H9.75C11.0066 20.25 12.25 18.9997 12.25 17.7344V6.26563C12.25 5.0003 11.0066 3.75002 9.75 3.75002H4.75Z"/><path d="M12 3.75C10.7434 3.75 9.5 5.00028 9.5 6.26561V17.7344C9.5 18.9997 10.7434 20.25 12 20.25C13.2566 20.25 14.5 18.9997 14.5 17.7344V6.26561C14.5 5.00028 13.2566 3.75 12 3.75Z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/10 mt-8 pt-8 text-center text-sm text-gray-400">
+        <p>© 2024 酷酷虎商城 版权所有 | ICP备案号：京ICP备12345678号</p>
+        <p class="mt-2">支持：Chrome、Firefox、Safari、Edge 等主流浏览器</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="back-to-top" onclick="scrollToTop()" class="fixed bottom-6 right-6 w-12 h-12 bg-tiger-orange text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all hover:bg-orange-600 z-40">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+  </button>
+
+  <script src="data.js"></script>
+  <script>
+    // ==================== Global State ====================
+    let currentUser = JSON.parse(localStorage.getItem('kuku_user')) || null;
+    let cart = JSON.parse(localStorage.getItem('kuku_cart')) || [];
+    let favorites = JSON.parse(localStorage.getItem('kuku_favorites')) || [];
+    let addresses = JSON.parse(localStorage.getItem('kuku_addresses')) || [];
+    let orders = JSON.parse(localStorage.getItem('kuku_orders')) || [];
+    let users = JSON.parse(localStorage.getItem('kuku_users')) || [];
+
+    let currentSlide = 0;
+    let currentPage = 'home';
+    let filteredProducts = [];
+    let displayedProducts = 0;
+    let filteredDisplayedProducts = 0;
+    const PRODUCTS_PER_PAGE = 20;
+
+    let searchTimeout = null;
+
+    // ==================== Initialization ====================
+    document.addEventListener('DOMContentLoaded', () => {
+      initApp();
+    });
+
+    function initApp() {
+      updateHeaderTime();
+      setInterval(updateHeaderTime, 1000);
+      initCarousel();
+      renderCategories();
+      renderFlashSale();
+      renderHotProducts();
+      renderAllProducts(0);
+      updateCartCount();
+      updateUserUI();
+      initBackToTop();
+      initLazyLoading();
+    }
+
+    function updateHeaderTime() {
+      const now = new Date();
+      const timeStr = now.toLocaleString('zh-CN', { month: 'short', day: 'numeric', weekday: 'short', hour: '2-digit', minute: '2-digit' });
+      document.getElementById('header-time').textContent = timeStr;
+    }
+
+    // ==================== Carousel ====================
+    function initCarousel() {
+      const banners = SHOP_DATA.banners;
+      const carouselInner = document.getElementById('carousel-inner');
+      const indicators = document.getElementById('carousel-indicators');
+
+      carouselInner.innerHTML = banners.map((banner, index) => `
+        <div class="w-full h-full flex-shrink-0 relative">
+          <img src="${banner.image}" alt="${banner.title}" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-r ${banner.bgColor} opacity-60"></div>
+          <div class="absolute inset-0 flex items-center">
+            <div class="max-w-7xl mx-auto px-4 w-full">
+              <div class="text-white">
+                <h2 class="text-3xl md:text-5xl font-bold mb-2 animate-fadeIn">${banner.title}</h2>
+                <p class="text-xl md:text-2xl mb-2 opacity-90">${banner.subtitle}</p>
+                <p class="text-sm opacity-75">${banner.description}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      indicators.innerHTML = banners.map((_, index) => `
+        <button onclick="goToSlide(${index})" class="w-3 h-3 rounded-full transition-all ${index === 0 ? 'bg-white w-8' : 'bg-white/50 hover:bg-white/80'}"></button>
+      `).join('');
+
+      // Auto slide
+      setInterval(() => {
+        nextSlide();
+      }, 5000);
+    }
+
+    function nextSlide() {
+      const banners = SHOP_DATA.banners;
+      currentSlide = (currentSlide + 1) % banners.length;
+      updateCarousel();
+    }
+
+    function prevSlide() {
+      const banners = SHOP_DATA.banners;
+      currentSlide = (currentSlide - 1 + banners.length) % banners.length;
+      updateCarousel();
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateCarousel();
+    }
+
+    function updateCarousel() {
+      const carouselInner = document.getElementById('carousel-inner');
+      const indicators = document.getElementById('carousel-indicators');
+      const banners = SHOP_DATA.banners;
+
+      carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+      indicators.innerHTML = banners.map((_, index) => `
+        <button onclick="goToSlide(${index})" class="w-3 h-3 rounded-full transition-all ${index === currentSlide ? 'bg-white w-8' : 'bg-white/50 hover:bg-white/80'}"></button>
+      `).join('');
+    }
+
+    // ==================== Categories ====================
+    function renderCategories() {
+      const grid = document.getElementById('category-grid');
+      grid.innerHTML = SHOP_DATA.categories.map(cat => `
+        <div onclick="filterByCategory('${cat.id}')" class="card-hover bg-white rounded-xl p-4 text-center cursor-pointer border border-gray-100">
+          <div class="w-12 h-12 mx-auto mb-2 rounded-full flex items-center justify-center text-2xl" style="background: ${cat.color}20">
+            ${cat.icon}
+          </div>
+          <p class="text-sm font-medium truncate">${cat.name}</p>
+        </div>
+      `).join('');
+
+      // Category filters
+      const filters = document.getElementById('category-filters');
+      if (filters) {
+        filters.innerHTML = SHOP_DATA.categories.map(cat => `
+          <button onclick="filterByCategory('${cat.id}')" class="category-pill px-4 py-1.5 bg-gray-100 rounded-full text-sm">${cat.name}</button>
+        `).join('');
+      }
+    }
+
+    // ==================== Flash Sale ====================
+    function renderFlashSale() {
+      const flashSaleProducts = SHOP_DATA.products.filter(p => p.flashSalePrice).slice(0, 5);
+      const container = document.getElementById('flash-sale-products');
+      container.innerHTML = flashSaleProducts.map(product => createProductCard(product)).join('');
+
+      // Update timer
+      updateFlashSaleTimer();
+      setInterval(updateFlashSaleTimer, 1000);
+    }
+
+    function updateFlashSaleTimer() {
+      const now = new Date();
+      const endOfDay = new Date();
+      endOfDay.setHours(23, 59, 59, 999);
+      const diff = endOfDay - now;
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      const timer = document.getElementById('flash-sale-timer');
+      if (timer) {
+        timer.innerHTML = `
+          <span class="timer-box px-2 py-1 rounded font-mono font-bold">${String(hours).padStart(2, '0')}</span>
+          <span>:</span>
+          <span class="timer-box px-2 py-1 rounded font-mono font-bold">${String(minutes).padStart(2, '0')}</span>
+          <span>:</span>
+          <span class="timer-box px-2 py-1 rounded font-mono font-bold">${String(seconds).padStart(2, '0')}</span>
+        `;
+      }
+    }
+
+    // ==================== Products ====================
+    function createProductCard(product) {
+      const isFavorite = favorites.includes(product.id);
+      return `
+        <div class="bg-white rounded-xl overflow-hidden card-hover cursor-pointer" onclick="showProductDetail(${product.id})">
+          <div class="relative">
+            <img src="${product.images[0]}" alt="${product.name}" class="w-full h-32 md:h-40 object-cover" loading="lazy">
+            ${product.flashSalePrice ? `<div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">限时特惠</div>` : ''}
+            ${product.discount ? `<div class="absolute top-2 right-2 bg-tiger-orange text-white text-xs px-2 py-1 rounded">-${product.discount}%</div>` : ''}
+            <button onclick="event.stopPropagation(); toggleFavorite(${product.id})" class="absolute bottom-2 right-2 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow hover:bg-white transition-colors">
+              <span class="${isFavorite ? 'text-red-500' : 'text-gray-300'}">${isFavorite ? '❤️' : '🤍'}</span>
+            </button>
+          </div>
+          <div class="p-3">
+            <h3 class="text-sm font-medium line-clamp-2 mb-2 h-10">${product.name}</h3>
+            <div class="flex items-center mb-2">
+              <span class="text-tiger-orange font-bold">¥${product.flashSalePrice || product.price}</span>
+              ${product.originalPrice ? `<span class="text-xs text-gray-400 line-through ml-2">¥${product.originalPrice}</span>` : ''}
+            </div>
+            <div class="flex items-center justify-between text-xs text-gray-500">
+              <span>销量 ${product.sales}</span>
+              <div class="flex items-center">
+                <span class="text-yellow-400">★</span>
+                <span>${product.rating}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHotProducts() {
+      const hotProducts = [...SHOP_DATA.products].sort((a, b) => b.sales - a.sales).slice(0, 8);
+      const container = document.getElementById('hot-products');
+      container.innerHTML = hotProducts.map(p => createProductCard(p)).join('');
+    }
+
+    function renderAllProducts(offset = 0) {
+      if (offset === 0) displayedProducts = 0;
+      const products = SHOP_DATA.products.slice(offset, offset + PRODUCTS_PER_PAGE);
+      const container = document.getElementById('all-products');
+
+      if (offset === 0) {
+        container.innerHTML = products.map(p => createProductCard(p)).join('');
+      } else {
+        container.innerHTML += products.map(p => createProductCard(p)).join('');
+      }
+      displayedProducts += products.length;
+
+      // Hide load more if all loaded
+      if (displayedProducts >= SHOP_DATA.products.length) {
+        document.getElementById('load-more').classList.add('hidden');
+      }
+    }
+
+    function loadMoreProducts() {
+      renderAllProducts(displayedProducts);
+    }
+
+    function switchHotTab(tab) {
+      // Update tabs
+      ['sales', 'rating', 'new'].forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        btn.className = `px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${t === tab ? 'bg-tiger-orange text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`;
+      });
+
+      let sortedProducts;
+      switch (tab) {
+        case 'rating':
+          sortedProducts = [...SHOP_DATA.products].sort((a, b) => b.rating - a.rating);
+          break;
+        case 'new':
+          sortedProducts = [...SHOP_DATA.products].sort((a, b) => b.createdAt - a.createdAt);
+          break;
+        default:
+          sortedProducts = [...SHOP_DATA.products].sort((a, b) => b.sales - a.sales);
+      }
+
+      const container = document.getElementById('hot-products');
+      container.innerHTML = sortedProducts.slice(0, 8).map(p => createProductCard(p)).join('');
+    }
+
+    function sortProducts(sortType) {
+      let sorted = [...filteredProducts];
+      switch (sortType) {
+        case 'price-low':
+          sorted.sort((a, b) => a.price - b.price);
+          break;
+        case 'price-high':
+          sorted.sort((a, b) => b.price - a.price);
+          break;
+        case 'sales':
+          sorted.sort((a, b) => b.sales - a.sales);
+          break;
+        case 'rating':
+          sorted.sort((a, b) => b.rating - a.rating);
+          break;
+        default:
+          sorted.sort((a, b) => b.sales - a.sales);
+      }
+      filteredProducts = sorted;
+      filteredDisplayedProducts = 0;
+      renderFilteredProducts();
+    }
+
+    function filterByCategory(categoryId) {
+      showPage('products');
+      if (categoryId) {
+        filteredProducts = SHOP_DATA.products.filter(p => p.category === categoryId);
+        const category = SHOP_DATA.categories.find(c => c.id === categoryId);
+        document.getElementById('category-breadcrumb').textContent = category?.name || '商品列表';
+      } else {
+        filteredProducts = [...SHOP_DATA.products];
+        document.getElementById('category-breadcrumb').textContent = '全部商品';
+      }
+      filteredDisplayedProducts = 0;
+      renderFilteredProducts();
+    }
+
+    function renderFilteredProducts() {
+      const container = document.getElementById('filtered-products');
+      const products = filteredProducts.slice(filteredDisplayedProducts, filteredDisplayedProducts + PRODUCTS_PER_PAGE);
+
+      if (filteredDisplayedProducts === 0) {
+        container.innerHTML = products.map(p => createProductCard(p)).join('');
+      } else {
+        container.innerHTML += products.map(p => createProductCard(p)).join('');
+      }
+      filteredDisplayedProducts += products.length;
+
+      // Hide load more if all loaded
+      if (filteredDisplayedProducts >= filteredProducts.length) {
+        document.getElementById('filtered-load-more').classList.add('hidden');
+      } else {
+        document.getElementById('filtered-load-more').classList.remove('hidden');
+      }
+    }
+
+    function loadMoreFilteredProducts() {
+      renderFilteredProducts();
+    }
+
+    // ==================== Product Detail ====================
+    function showProductDetail(productId) {
+      const product = SHOP_DATA.products.find(p => p.id === productId);
+      if (!product) return;
+
+      showPage('detail');
+
+      const container = document.getElementById('product-detail');
+      const isFavorite = favorites.includes(product.id);
+
+      container.innerHTML = `
+        <div class="bg-white rounded-xl overflow-hidden">
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Images -->
+            <div>
+              <div class="relative mb-4">
+                <img id="main-product-image" src="${product.images[0]}" alt="${product.name}" class="w-full aspect-square object-cover rounded-xl">
+                ${product.discount ? `<div class="absolute top-4 right-4 bg-tiger-orange text-white px-3 py-1 rounded-full">-${product.discount}%</div>` : ''}
+              </div>
+              <div class="grid grid-cols-4 gap-2">
+                ${product.images.map((img, i) => `
+                  <img src="${img}" alt="" onclick="changeMainImage('${img}')" class="w-full aspect-square object-cover rounded-lg cursor-pointer hover:ring-2 hover:ring-tiger-orange transition-all ${i === 0 ? 'ring-2 ring-tiger-orange' : ''}">
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Info -->
+            <div class="p-4">
+              <div class="flex items-start justify-between mb-4">
+                <div>
+                  <span class="inline-block px-2 py-1 bg-orange-100 text-tiger-orange text-xs rounded mb-2">${product.categoryName}</span>
+                  <h1 class="text-2xl font-bold mb-2">${product.name}</h1>
+                </div>
+                <button onclick="toggleFavorite(${product.id})" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                  <span class="text-2xl">${isFavorite ? '❤️' : '🤍'}</span>
+                </button>
+              </div>
+
+              <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                <div class="flex items-baseline mb-2">
+                  <span class="text-tiger-orange text-3xl font-bold">¥${product.flashSalePrice || product.price}</span>
+                  ${product.originalPrice ? `<span class="text-gray-400 line-through ml-3">¥${product.originalPrice}</span>` : ''}
+                </div>
+                <div class="flex items-center space-x-4 text-sm text-gray-500">
+                  <span>销量 ${product.sales}+</span>
+                  <span class="flex items-center"><span class="text-yellow-400 mr-1">★</span>${product.rating}</span>
+                  <span>库存 ${product.stock}</span>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <!-- Specs -->
+                ${product.specs.map(spec => `
+                  <div class="flex">
+                    <span class="w-20 text-gray-500">${spec.label}</span>
+                    <span class="font-medium">${spec.value}</span>
+                  </div>
+                `).join('')}
+
+                <!-- Quantity -->
+                <div class="flex items-center">
+                  <span class="w-20 text-gray-500">数量</span>
+                  <div class="flex items-center border border-gray-200 rounded-lg">
+                    <button onclick="changeQuantity(-1)" class="px-3 py-2 hover:bg-gray-100 transition-colors text-lg">-</button>
+                    <input type="number" id="product-quantity" value="1" min="1" max="${product.stock}" class="w-16 text-center border-x border-gray-200 py-2 focus:outline-none">
+                    <button onclick="changeQuantity(1)" class="px-3 py-2 hover:bg-gray-100 transition-colors text-lg">+</button>
+                  </div>
+                  <span class="ml-3 text-gray-500 text-sm">件</span>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex space-x-3 pt-4">
+                  <button onclick="addToCart(${product.id})" class="flex-1 py-3 border-2 border-tiger-orange text-tiger-orange rounded-xl font-medium hover:bg-orange-50 transition-colors flex items-center justify-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <span>加入购物车</span>
+                  </button>
+                  <button onclick="buyNow(${product.id})" class="flex-1 btn-primary py-3 text-white rounded-xl font-medium">
+                    立即购买
+                  </button>
+                </div>
+
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-2 pt-4">
+                  ${product.tags.map(tag => `<span class="px-3 py-1 bg-gray-100 rounded-full text-xs">${tag}</span>`).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="border-t mt-6 p-6">
+            <h3 class="text-lg font-bold mb-4">商品详情</h3>
+            <p class="text-gray-600 leading-relaxed">${product.description}</p>
+          </div>
+        </div>
+
+        <!-- Back Button -->
+        <button onclick="history.back()" class="mt-4 flex items-center text-gray-500 hover:text-tiger-orange transition-colors">
+          <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          返回
+        </button>
+      `;
+    }
+
+    function changeMainImage(src) {
+      document.getElementById('main-product-image').src = src;
+      document.querySelectorAll('#page-detail .grid-cols-4 img').forEach(img => {
+        img.classList.toggle('ring-2', img.src === src);
+        img.classList.toggle('ring-tiger-orange', img.src === src);
+      });
+    }
+
+    function changeQuantity(delta) {
+      const input = document.getElementById('product-quantity');
+      let value = parseInt(input.value) + delta;
+      value = Math.max(1, Math.min(value, parseInt(input.max)));
+      input.value = value;
+    }
+
+    // ==================== Cart ====================
+    function addToCart(productId, quantity = 1) {
+      if (!currentUser) {
+        showToast('请先登录', 'warning');
+        showModal('login-modal');
+        return;
+      }
+
+      const product = SHOP_DATA.products.find(p => p.id === productId);
+      if (!product) return;
+
+      const qty = quantity || parseInt(document.getElementById('product-quantity')?.value || 1);
+      const existingItem = cart.find(item => item.productId === productId);
+
+      if (existingItem) {
+        existingItem.quantity += qty;
+      } else {
+        cart.push({
+          productId,
+          quantity: qty,
+          addedAt: Date.now()
+        });
+      }
+
+      localStorage.setItem('kuku_cart', JSON.stringify(cart));
+      updateCartCount();
+      showToast('已加入购物车', 'success');
+    }
+
+    function buyNow(productId) {
+      if (!currentUser) {
+        showToast('请先登录', 'warning');
+        showModal('login-modal');
+        return;
+      }
+      // Add to cart first
+      addToCart(productId);
+      // Go to checkout
+      showPage('checkout');
+      renderCheckout();
+    }
+
+    function updateCartCount() {
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const badge = document.getElementById('cart-count');
+      if (count > 0) {
+        badge.textContent = count > 99 ? '99+' : count;
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+    }
+
+    function showCart() {
+      showPage('cart');
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartEmpty = document.getElementById('cart-empty');
+      const cartContent = document.getElementById('cart-content');
+
+      if (cart.length === 0) {
+        cartEmpty.classList.remove('hidden');
+        cartContent.classList.add('hidden');
+        return;
+      }
+
+      cartEmpty.classList.add('hidden');
+      cartContent.classList.remove('hidden');
+
+      const cartItems = document.getElementById('cart-items');
+      let subtotal = 0;
+
+      cartItems.innerHTML = cart.map((item, index) => {
+        const product = SHOP_DATA.products.find(p => p.id === item.productId);
+        if (!product) return '';
+        const price = product.flashSalePrice || product.price;
+        const itemTotal = price * item.quantity;
+        subtotal += itemTotal;
+
+        return `
+          <div class="bg-white rounded-xl p-4 flex items-center space-x-4">
+            <img src="${product.images[0]}" alt="${product.name}" class="w-20 h-20 object-cover rounded-lg">
+            <div class="flex-1">
+              <h3 class="font-medium line-clamp-2">${product.name}</h3>
+              <p class="text-tiger-orange font-bold mt-1">¥${price}</p>
+            </div>
+            <div class="flex items-center space-x-2">
+              <button onclick="updateCartItem(${index}, -1)" class="w-8 h-8 border border-gray-200 rounded flex items-center justify-center hover:bg-gray-100 transition-colors">-</button>
+              <span class="w-8 text-center">${item.quantity}</span>
+              <button onclick="updateCartItem(${index}, 1)" class="w-8 h-8 border border-gray-200 rounded flex items-center justify-center hover:bg-gray-100 transition-colors">+</button>
+            </div>
+            <button onclick="removeCartItem(${index})" class="p-2 text-gray-400 hover:text-red-500 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      // Update totals
+      const shipping = subtotal >= 99 ? 0 : 10;
+      const discount = subtotal >= 299 ? 50 : 0;
+      const total = subtotal + shipping - discount;
+
+      document.getElementById('cart-subtotal').textContent = `¥${subtotal.toFixed(2)}`;
+      document.getElementById('cart-shipping').textContent = shipping === 0 ? '免运费' : `¥${shipping.toFixed(2)}`;
+      document.getElementById('cart-discount').textContent = `-¥${discount.toFixed(2)}`;
+      document.getElementById('cart-total').textContent = `¥${total.toFixed(2)}`;
+      document.getElementById('cart-item-count').textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+    }
+
+    function updateCartItem(index, delta) {
+      cart[index].quantity += delta;
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+      }
+      localStorage.setItem('kuku_cart', JSON.stringify(cart));
+      updateCartCount();
+      renderCart();
+    }
+
+    function removeCartItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('kuku_cart', JSON.stringify(cart));
+      updateCartCount();
+      renderCart();
+    }
+
+    // ==================== Checkout ====================
+    function goToCheckout() {
+      if (cart.length === 0) {
+        showToast('购物车是空的', 'warning');
+        return;
+      }
+      if (!currentUser) {
+        showToast('请先登录', 'warning');
+        showModal('login-modal');
+        return;
+      }
+      if (addresses.length === 0) {
+        showToast('请先添加收货地址', 'warning');
+        showAddAddressModal();
+        return;
+      }
+      showPage('checkout');
+      renderCheckout();
+    }
+
+    function renderCheckout() {
+      // Address
+      const addressList = document.getElementById('address-list');
+      const defaultAddress = addresses.find(a => a.isDefault) || addresses[0];
+      addressList.innerHTML = addresses.map((addr, index) => `
+        <label class="flex items-start space-x-3 p-3 border-2 rounded-xl cursor-pointer transition-colors ${addr.id === defaultAddress?.id ? 'border-tiger-orange bg-orange-50' : 'border-gray-200 hover:border-tiger-orange'}">
+          <input type="radio" name="address" value="${addr.id}" ${addr.id === defaultAddress?.id ? 'checked' : ''} class="mt-1 text-tiger-orange">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-medium">${addr.name}</span>
+              <span class="text-gray-500">${addr.phone}</span>
+              ${addr.isDefault ? '<span class="px-2 py-0.5 bg-tiger-orange text-white text-xs rounded">默认</span>' : ''}
+            </div>
+            <p class="text-sm text-gray-500 mt-1">${addr.region} ${addr.detail}</p>
+          </div>
+        </label>
+      `).join('');
+
+      // Items
+      const checkoutItems = document.getElementById('checkout-items');
+      let subtotal = 0;
+
+      checkoutItems.innerHTML = cart.map(item => {
+        const product = SHOP_DATA.products.find(p => p.id === item.productId);
+        if (!product) return '';
+        const price = product.flashSalePrice || product.price;
+        const itemTotal = price * item.quantity;
+        subtotal += itemTotal;
+
+        return `
+          <div class="flex items-center space-x-4 py-3 border-b border-gray-100 last:border-0">
+            <img src="${product.images[0]}" alt="${product.name}" class="w-16 h-16 object-cover rounded-lg">
+            <div class="flex-1">
+              <h4 class="font-medium text-sm line-clamp-1">${product.name}</h4>
+              <p class="text-xs text-gray-500">x${item.quantity}</p>
+            </div>
+            <span class="text-tiger-orange font-bold">¥${itemTotal.toFixed(2)}</span>
+          </div>
+        `;
+      }).join('');
+
+      // Totals
+      const shipping = subtotal >= 99 ? 0 : 10;
+      const discount = subtotal >= 299 ? 50 : 0;
+      const total = subtotal + shipping - discount;
+
+      document.getElementById('checkout-count').textContent = `${cart.reduce((sum, item) => sum + item.quantity, 0)}件`;
+      document.getElementById('checkout-subtotal').textContent = `¥${subtotal.toFixed(2)}`;
+      document.getElementById('checkout-shipping').textContent = shipping === 0 ? '免运费' : `¥${shipping.toFixed(2)}`;
+      document.getElementById('checkout-discount').textContent = `-¥${discount.toFixed(2)}`;
+      document.getElementById('checkout-total').textContent = `¥${total.toFixed(2)}`;
+      document.getElementById('payment-amount').textContent = `¥${total.toFixed(2)}`;
+    }
+
+    function showAddAddressModal() {
+      showModal('address-modal');
+    }
+
+    function handleAddAddress(e) {
+      e.preventDefault();
+      const name = document.getElementById('address-name').value;
+      const phone = document.getElementById('address-phone').value;
+      const region = document.getElementById('address-region').value;
+      const detail = document.getElementById('address-detail').value;
+      const isDefault = document.getElementById('address-default').checked;
+
+      if (isDefault) {
+        addresses.forEach(a => a.isDefault = false);
+      }
+
+      addresses.push({
+        id: Date.now(),
+        name,
+        phone,
+        region,
+        detail,
+        isDefault
+      });
+
+      localStorage.setItem('kuku_addresses', JSON.stringify(addresses));
+      closeModal('address-modal');
+      renderCheckout();
+      showToast('地址添加成功', 'success');
+      e.target.reset();
+    }
+
+    function submitOrder() {
+      const selectedAddress = document.querySelector('input[name="address"]:checked')?.value;
+      const payment = document.querySelector('input[name="payment"]:checked')?.value;
+
+      if (!selectedAddress) {
+        showToast('请选择收货地址', 'warning');
+        return;
+      }
+
+      if (!payment) {
+        showToast('请选择支付方式', 'warning');
+        return;
+      }
+
+      // Create order
+      const address = addresses.find(a => a.id == selectedAddress);
+      const orderItems = cart.map(item => {
+        const product = SHOP_DATA.products.find(p => p.id === item.productId);
+        return {
+          productId: item.productId,
+          name: product?.name,
+          image: product?.images[0],
+          price: product?.flashSalePrice || product?.price,
+          quantity: item.quantity
+        };
+      });
+
+      const subtotal = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const shipping = subtotal >= 99 ? 0 : 10;
+      const discount = subtotal >= 299 ? 50 : 0;
+      const total = subtotal + shipping - discount;
+
+      const order = {
+        id: 'DD' + Date.now(),
+        items: orderItems,
+        address: `${address.region} ${address.detail}`,
+        receiver: address.name,
+        phone: address.phone,
+        payment,
+        subtotal,
+        shipping,
+        discount,
+        total,
+        status: 'pending',
+        createdAt: Date.now()
+      };
+
+      orders.unshift(order);
+      localStorage.setItem('kuku_orders', JSON.stringify(orders));
+
+      // Clear cart
+      cart = [];
+      localStorage.setItem('kuku_cart', JSON.stringify(cart));
+      updateCartCount();
+
+      // Show payment page
+      showPage('payment');
+      renderPayment(order);
+
+      showToast('订单提交成功', 'success');
+    }
+
+    function renderPayment(order) {
+      document.getElementById('payment-amount').textContent = `¥${order.total.toFixed(2)}`;
+
+      // Payment timeout
+      let timeLeft = 15 * 60;
+      const interval = setInterval(() => {
+        timeLeft--;
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        document.getElementById('payment-timeout').textContent = `${minutes}:${String(seconds).padStart(2, '0')}`;
+        if (timeLeft <= 0) {
+          clearInterval(interval);
+          showToast('订单已超时', 'error');
+        }
+      }, 1000);
+
+      // Order info
+      document.getElementById('payment-order-info').innerHTML = `
+        <div class="flex justify-between"><span>订单编号</span><span class="font-mono">${order.id}</span></div>
+        <div class="flex justify-between"><span>收货人</span><span>${order.receiver}</span></div>
+        <div class="flex justify-between"><span>联系方式</span><span>${order.phone}</span></div>
+        <div class="flex justify-between"><span>收货地址</span><span class="text-right">${order.address}</span></div>
+      `;
+
+      // Generate fake QR code
+      setTimeout(() => {
+        document.getElementById('qr-placeholder').innerHTML = `
+          <div class="w-48 h-48 bg-white rounded-lg flex items-center justify-center">
+            <svg class="w-32 h-32 text-gray-800" viewBox="0 0 100 100">
+              <rect x="10" y="10" width="25" height="25" fill="currentColor"/>
+              <rect x="65" y="10" width="25" height="25" fill="currentColor"/>
+              <rect x="10" y="65" width="25" height="25" fill="currentColor"/>
+              <rect x="40" y="40" width="20" height="20" fill="currentColor"/>
+              <rect x="15" y="15" width="15" height="15" fill="white"/>
+              <rect x="70" y="15" width="15" height="15" fill="white"/>
+              <rect x="15" y="70" width="15" height="15" fill="white"/>
+              <rect x="45" y="45" width="10" height="10" fill="white"/>
+            </svg>
+          </div>
+        `;
+      }, 1000);
+    }
+
+    function completePayment() {
+      const order = orders[0];
+      if (order) {
+        order.status = 'paid';
+        order.paidAt = Date.now();
+        localStorage.setItem('kuku_orders', JSON.stringify(orders));
+        showToast('支付成功', 'success');
+        showPage('orders');
+        renderOrders();
+      }
+    }
+
+    // ==================== Orders ====================
+    function showOrders() {
+      showPage('orders');
+      renderOrders();
+    }
+
+    function renderOrders(filter = 'all') {
+      let filtered = orders;
+      if (filter !== 'all') {
+        filtered = orders.filter(o => o.status === filter);
+      }
+
+      const list = document.getElementById('orders-list');
+      const empty = document.getElementById('orders-empty');
+
+      if (filtered.length === 0) {
+        list.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+
+      empty.classList.add('hidden');
+
+      const statusText = {
+        pending: { text: '待支付', color: 'text-yellow-500 bg-yellow-50' },
+        paid: { text: '待发货', color: 'text-blue-500 bg-blue-50' },
+        shipped: { text: '待收货', color: 'text-orange-500 bg-orange-50' },
+        completed: { text: '已完成', color: 'text-green-500 bg-green-50' }
+      };
+
+      list.innerHTML = filtered.map(order => `
+        <div class="bg-white rounded-xl p-4">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-sm text-gray-500">订单号：${order.id}</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium ${statusText[order.status]?.color}">${statusText[order.status]?.text}</span>
+          </div>
+          <div class="space-y-3">
+            ${order.items.map(item => `
+              <div class="flex items-center space-x-3">
+                <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
+                <div class="flex-1">
+                  <h4 class="font-medium text-sm line-clamp-1">${item.name}</h4>
+                  <p class="text-xs text-gray-500">x${item.quantity}</p>
+                </div>
+                <span class="text-tiger-orange font-bold">¥${(item.price * item.quantity).toFixed(2)}</span>
+              </div>
+            `).join('')}
+          </div>
+          <div class="border-t mt-3 pt-3 flex items-center justify-between">
+            <span class="text-sm">共${order.items.reduce((sum, item) => sum + item.quantity, 0)}件商品，合计：<span class="text-tiger-orange font-bold">¥${order.total.toFixed(2)}</span></span>
+            <div class="flex space-x-2">
+              ${order.status === 'pending' ? `
+                <button onclick="showPage('payment')" class="px-4 py-1.5 border border-tiger-orange text-tiger-orange rounded-full text-sm hover:bg-orange-50 transition-colors">去支付</button>
+              ` : ''}
+              ${order.status === 'shipped' ? `
+                <button onclick="confirmReceive('${order.id}')" class="px-4 py-1.5 bg-tiger-orange text-white rounded-full text-sm hover:bg-orange-600 transition-colors">确认收货</button>
+              ` : ''}
+              <button onclick="showOrderDetail('${order.id}')" class="px-4 py-1.5 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-gray-200 transition-colors">查看详情</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterOrders(filter) {
+      // Update tabs
+      document.querySelectorAll('.order-tab').forEach(tab => {
+        tab.className = `px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${tab.textContent === (filter === 'all' ? '全部' : filter === 'pending' ? '待支付' : filter === 'paid' ? '待发货' : filter === 'shipped' ? '待收货' : '已完成') ? 'bg-tiger-orange text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`;
+      });
+      renderOrders(filter);
+    }
+
+    function confirmReceive(orderId) {
+      const order = orders.find(o => o.id === orderId);
+      if (order) {
+        order.status = 'completed';
+        localStorage.setItem('kuku_orders', JSON.stringify(orders));
+        showToast('确认收货成功', 'success');
+        renderOrders();
+      }
+    }
+
+    function showOrderDetail(orderId) {
+      // For simplicity, just show the orders page
+      showOrders();
+    }
+
+    // ==================== User ====================
+    function toggleUserMenu() {
+      const dropdown = document.getElementById('user-dropdown');
+      dropdown.classList.toggle('hidden');
+      updateUserDropdown();
+    }
+
+    function updateUserDropdown() {
+      const content = document.getElementById('user-dropdown-content');
+      if (currentUser) {
+        content.innerHTML = `
+          <div class="p-4 border-b border-gray-100">
+            <p class="font-medium">${currentUser.username}</p>
+            <p class="text-sm text-gray-500">${currentUser.phone}</p>
+          </div>
+          <div class="p-2">
+            <a href="#" onclick="showPage('user'); closeUserMenu();" class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+              <span>👤</span><span>个人中心</span>
+            </a>
+            <a href="#" onclick="showPage('orders'); closeUserMenu();" class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+              <span>📦</span><span>我的订单</span>
+            </a>
+            <a href="#" onclick="showFavorites(); closeUserMenu();" class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+              <span>❤️</span><span>我的收藏</span>
+            </a>
+            <button onclick="logout(); closeUserMenu();" class="w-full flex items-center space-x-3 p-2 hover:bg-red-50 text-red-500 rounded-lg transition-colors">
+              <span>🚪</span><span>退出登录</span>
+            </button>
+          </div>
+        `;
+      } else {
+        content.innerHTML = `
+          <div class="p-4">
+            <p class="text-gray-500 mb-3">登录后享受更多权益</p>
+            <button onclick="closeUserMenu(); showModal('login-modal');" class="w-full btn-primary py-2 text-white rounded-lg">
+              登录 / 注册
+            </button>
+          </div>
+        `;
+      }
+    }
+
+    function closeUserMenu() {
+      document.getElementById('user-dropdown').classList.add('hidden');
+    }
+
+    function updateUserUI() {
+      const userName = document.getElementById('user-name');
+      const mobileUserSection = document.getElementById('mobile-user-section');
+      const userCenterHeader = document.getElementById('user-center-header');
+      const userCenterName = document.getElementById('user-center-name');
+      const userCenterLevel = document.getElementById('user-center-level');
+
+      if (currentUser) {
+        userName.textContent = currentUser.username;
+        mobileUserSection.innerHTML = `
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 bg-tiger-orange rounded-full flex items-center justify-center text-2xl">😃</div>
+            <div>
+              <p class="font-bold">${currentUser.username}</p>
+              <p class="text-sm text-gray-500">${currentUser.phone}</p>
+            </div>
+          </div>
+        `;
+        userCenterName.textContent = currentUser.username;
+        userCenterLevel.textContent = '钻石会员';
+      } else {
+        userName.textContent = '登录/注册';
+        mobileUserSection.innerHTML = `
+          <button onclick="showModal('login-modal'); toggleMobileMenu();" class="w-full btn-primary py-3 text-white rounded-xl font-medium">
+            登录 / 注册
+          </button>
+        `;
+        userCenterName.textContent = '游客';
+        userCenterLevel.textContent = '登录即可享受更多权益';
+      }
+
+      // Update stats
+      document.getElementById('user-favorites-count').textContent = favorites.length;
+      document.getElementById('user-coupons-count').textContent = 5;
+      document.getElementById('user-points').textContent = currentUser?.points || 0;
+      document.getElementById('user-orders-count').textContent = orders.length;
+    }
+
+    function showUserCenter() {
+      showPage('user');
+      updateUserUI();
+    }
+
+    function logout() {
+      currentUser = null;
+      localStorage.removeItem('kuku_user');
+      updateUserUI();
+      updateUserDropdown();
+      showToast('已退出登录', 'success');
+      showPage('home');
+    }
+
+    function showFavorites() {
+      if (!currentUser) {
+        showToast('请先登录', 'warning');
+        showModal('login-modal');
+        return;
+      }
+      showPage('home');
+      // Filter products by favorites
+      filteredProducts = SHOP_DATA.products.filter(p => favorites.includes(p.id));
+      filteredDisplayedProducts = 0;
+      document.getElementById('category-breadcrumb').textContent = '我的收藏';
+      renderFilteredProducts();
+      document.getElementById('filtered-load-more').classList.add('hidden');
+    }
+
+    function showCoupons() {
+      showToast('优惠券功能开发中', 'info');
+    }
+
+    function showAddress() {
+      showPage('checkout');
+      showAddAddressModal();
+    }
+
+    // ==================== Auth ====================
+    function switchToRegister() {
+      document.getElementById('login-form').classList.add('hidden');
+      document.getElementById('register-form').classList.remove('hidden');
+      document.getElementById('login-modal-title').textContent = '注册';
+    }
+
+    function switchToLogin() {
+      document.getElementById('register-form').classList.add('hidden');
+      document.getElementById('login-form').classList.remove('hidden');
+      document.getElementById('login-modal-title').textContent = '登录';
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value;
+      const password = document.getElementById('login-password').value;
+
+      // Check users
+      const user = users.find(u => (u.username === username || u.phone === username) && u.password === password);
+
+      if (user) {
+        currentUser = user;
+        localStorage.setItem('kuku_user', JSON.stringify(user));
+        updateUserUI();
+        updateUserDropdown();
+        closeModal('login-modal');
+        showToast(`欢迎回来，${user.username}！`, 'success');
+      } else {
+        showToast('用户名或密码错误', 'error');
+      }
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      const phone = document.getElementById('register-phone').value;
+      const username = document.getElementById('register-username').value;
+      const password = document.getElementById('register-password').value;
+      const confirm = document.getElementById('register-confirm').value;
+
+      if (password !== confirm) {
+        showToast('两次密码输入不一致', 'error');
+        return;
+      }
+
+      if (users.find(u => u.username === username)) {
+        showToast('用户名已存在', 'error');
+        return;
+      }
+
+      if (users.find(u => u.phone === phone)) {
+        showToast('手机号已被注册', 'error');
+        return;
+      }
+
+      const user = {
+        id: Date.now(),
+        phone,
+        username,
+        password,
+        points: 100,
+        createdAt: Date.now()
+      };
+
+      users.push(user);
+      localStorage.setItem('kuku_users', JSON.stringify(users));
+
+      // Auto login
+      currentUser = user;
+      localStorage.setItem('kuku_user', JSON.stringify(user));
+      updateUserUI();
+      updateUserDropdown();
+      closeModal('login-modal');
+      showToast('注册成功，欢迎加入酷酷虎！', 'success');
+    }
+
+    function quickLogin(type) {
+      // Simulate quick login
+      const fakeUser = {
+        id: Date.now(),
+        phone: '138****8888',
+        username: '游客' + Math.floor(Math.random() * 1000),
+        password: '',
+        points: 50,
+        createdAt: Date.now()
+      };
+
+      users.push(fakeUser);
+      localStorage.setItem('kuku_users', JSON.stringify(users));
+
+      currentUser = fakeUser;
+      localStorage.setItem('kuku_user', JSON.stringify(fakeUser));
+      updateUserUI();
+      updateUserDropdown();
+      closeModal('login-modal');
+      showToast(`欢迎来到酷酷虎！`, 'success');
+    }
+
+    // ==================== Favorites ====================
+    function toggleFavorite(productId) {
+      if (!currentUser) {
+        showToast('请先登录', 'warning');
+        showModal('login-modal');
+        return;
+      }
+
+      const index = favorites.indexOf(productId);
+      if (index > -1) {
+        favorites.splice(index, 1);
+        showToast('已取消收藏', 'info');
+      } else {
+        favorites.push(productId);
+        showToast('已添加收藏', 'success');
+      }
+
+      localStorage.setItem('kuku_favorites', JSON.stringify(favorites));
+      updateUserUI();
+
+      // Re-render current page if on product or home
+      if (currentPage === 'home') {
+        renderHotProducts();
+        renderAllProducts(0);
+      }
+    }
+
+    // ==================== Search ====================
+    function handleSearch(value) {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        if (value.length > 0) {
+          const results = SHOP_DATA.products.filter(p => 
+            p.name.toLowerCase().includes(value.toLowerCase()) ||
+            p.categoryName.includes(value)
+          );
+          const list = document.getElementById('suggestion-list');
+          if (results.length > 0) {
+            list.innerHTML = results.slice(0, 5).map(p => `
+              <div onclick="showProductDetail(${p.id})" class="suggestion-item flex items-center space-x-3 p-2 rounded-lg cursor-pointer">
+                <img src="${p.images[0]}" alt="" class="w-10 h-10 object-cover rounded">
+                <div>
+                  <p class="text-sm font-medium line-clamp-1">${p.name}</p>
+                  <p class="text-xs text-tiger-orange">¥${p.price}</p>
+                </div>
+              </div>
+            `).join('');
+          } else {
+            list.innerHTML = '<p class="text-center text-gray-500 py-4">未找到相关商品</p>';
+          }
+        }
+      }, 300);
+    }
+
+    function showSearchSuggestions() {
+      document.getElementById('search-suggestions').classList.remove('hidden');
+    }
+
+    function performSearch() {
+      const value = document.getElementById('search-input').value;
+      if (value.trim()) {
+        searchProduct(value);
+      }
+    }
+
+    function performMobileSearch() {
+      const value = document.getElementById('mobile-search-input').value;
+      if (value.trim()) {
+        toggleMobileSearch();
+        searchProduct(value);
+      }
+    }
+
+    function searchHotWord(word) {
+      document.getElementById('search-input').value = word;
+      searchProduct(word);
+    }
+
+    function searchProduct(keyword) {
+      document.getElementById('search-keyword').textContent = keyword;
+      filteredProducts = SHOP_DATA.products.filter(p => 
+        p.name.toLowerCase().includes(keyword.toLowerCase()) ||
+        p.categoryName.includes(keyword)
+      );
+      document.getElementById('search-count').textContent = filteredProducts.length;
+      
+      showPage('search');
+      const container = document.getElementById('search-results');
+      const empty = document.getElementById('search-empty');
+
+      if (filteredProducts.length === 0) {
+        container.innerHTML = '';
+        empty.classList.remove('hidden');
+      } else {
+        empty.classList.add('hidden');
+        container.innerHTML = filteredProducts.map(p => createProductCard(p)).join('');
+      }
+    }
+
+    // ==================== Navigation ====================
+    function showPage(pageId) {
+      // Hide all pages
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+
+      // Show target page
+      const target = document.getElementById(`page-${pageId}`);
+      if (target) {
+        target.classList.add('active');
+        currentPage = pageId;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Close mobile menu if open
+      document.getElementById('mobile-menu').classList.remove('open');
+    }
+
+    function showAllCategories() {
+      showPage('products');
+      filterByCategory(null);
+    }
+
+    function showPromotion(id) {
+      showToast('促销活动即将开始', 'info');
+    }
+
+    // ==================== Modals ====================
+    function showModal(modalId) {
+      document.getElementById(modalId).classList.remove('hidden');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.add('hidden');
+    }
+
+    // ==================== Mobile ====================
+    function toggleMobileSearch() {
+      document.getElementById('mobile-search').classList.toggle('hidden');
+      if (!document.getElementById('mobile-search').classList.contains('hidden')) {
+        document.getElementById('mobile-search-input').focus();
+      }
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    }
+
+    // ==================== Toast ====================
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const colors = {
+        success: 'bg-green-500',
+        error: 'bg-red-500',
+        warning: 'bg-yellow-500',
+        info: 'bg-blue-500'
+      };
+
+      const toast = document.createElement('div');
+      toast.className = `toast ${colors[type]} text-white px-6 py-3 rounded-xl shadow-lg flex items-center space-x-2`;
+      toast.innerHTML = `
+        <span>${type === 'success' ? '✓' : type === 'error' ? '✕' : type === 'warning' ? '⚠' : 'ℹ'}</span>
+        <span>${message}</span>
+      `;
+
+      container.appendChild(toast);
+
+      setTimeout(() => toast.classList.add('show'), 10);
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // ==================== Back to Top ====================
+    function initBackToTop() {
+      const btn = document.getElementById('back-to-top');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+          btn.classList.remove('opacity-0', 'invisible');
+          btn.classList.add('opacity-100', 'visible');
+        } else {
+          btn.classList.add('opacity-0', 'invisible');
+          btn.classList.remove('opacity-100', 'visible');
+        }
+      });
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ==================== Lazy Loading ====================
+    function initLazyLoading() {
+      const images = document.querySelectorAll('.lazy-img');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.add('loaded');
+            observer.unobserve(img);
+          }
+        });
+      });
+
+      images.forEach(img => observer.observe(img));
+    }
+
+    // ==================== Utilities ====================
+    document.addEventListener('click', (e) => {
+      // Close dropdowns when clicking outside
+      const userDropdown = document.getElementById('user-dropdown');
+      if (!e.target.closest('#user-dropdown') && !e.target.closest('button')) {
+        userDropdown.classList.add('hidden');
+      }
+
+      // Close search suggestions when clicking outside
+      const searchSuggestions = document.getElementById('search-suggestions');
+      if (!e.target.closest('#search-suggestions') && !e.target.closest('#search-input')) {
+        searchSuggestions.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
